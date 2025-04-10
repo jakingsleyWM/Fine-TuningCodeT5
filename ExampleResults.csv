@@ -1,0 +1,365 @@
+Input function with masked if condition,Prediction is correct (exact match),Expected if condition,Predicted if condition,BLEU-4 prediction score (0-100),CodeBLEU prediction score (0-100)
+"def read(self, count=True, timeout=None, ignore_non_errors=True, ignore_timeouts=True):
+    try:
+        return self._read(count, timeout)
+    except usb.USBError as e:
+        if DEBUG_COMM:
+            log.info(
+                ""read: e.errno=%s e.strerror=%s e.message=%s repr=%s""
+                % (e.errno, e.strerror, e.message, repr(e))
+            )
+        if ignore_timeouts and is_timeout(e):
+            return []
+        if ignore_non_errors and is_noerr(e):
+            return []
+        raise
+",False,if ignore_timeouts and is_timeout ( e ) :,if DEBUG_COMM :,3.47,0
+"def _cache_mem(curr_out, prev_mem, mem_len, reuse_len=None):
+    """"""cache hidden states into memory.""""""
+    if mem_len is None or mem_len == 0:
+        return None
+    else:
+        if reuse_len is not None and reuse_len > 0:
+            curr_out = curr_out[:reuse_len]
+        if prev_mem is None:
+            new_mem = curr_out[-mem_len:]
+        else:
+            new_mem = tf.concat([prev_mem, curr_out], 0)[-mem_len:]
+    new_mem.stop_gradient = True
+    return new_mem
+",True,if prev_mem is None :,if prev_mem is None :,100.0,0
+"def filtered(gen):
+    for example in gen:
+        example_len = length_fn(example)
+        # Checking max length boundary.
+        if max_length is not None:
+            if example_len > max_length:
+                continue
+        # Checking min length boundary.
+        if min_length is not None:
+            if example_len < min_length:
+                continue
+        # Within bounds.
+        yield example
+",False,if example_len > max_length :,if,0.0,0
+"def search(self, query):
+    # ""Search.ashx?query="" + query + filterVal
+    if not query:
+        logger.debug(""Empty search query"")
+        return []
+    logger.debug('Searching TuneIn for ""%s""' % query)
+    args = ""&query="" + query
+    search_results = self._tunein(""Search.ashx"", args)
+    results = []
+    for item in self._flatten(search_results):
+        if item.get(""type"", """") == ""audio"":
+            # Only return stations
+            self._stations[item[""guide_id""]] = item
+            results.append(item)
+    return results
+",False,"if item . get ( ""type"" , """" ) == ""audio"" :","self . _tunein ( ""Search.ashx"" , args )",6.58,0
+"def _check_script(self, script, directive):
+    for var in compile_script(script):
+        if var.must_contain(""/""):
+            # Skip variable checks
+            return False
+        if var.can_contain("".""):
+            # Yay! Our variable can contain any symbols!
+            reason = (
+                'At least variable ""${var}"" can contain untrusted user input'.format(
+                    var=var.name
+                )
+            )
+            self.add_issue(directive=[directive] + var.providers, reason=reason)
+            return True
+    return False
+",False,"if var . must_contain ( ""/"" ) :",if var . can_contain (,20.13,0
+"def getAllDataLinkIDs():
+    linkDataIDs = set()
+    dataType = _forestData.dataTypeBySocket
+    for socketID, linkedIDs in _forestData.linkedSockets.items():
+        for linkedID in linkedIDs:
+            if socketID[1]:  # check which one is origin/target
+                linkDataIDs.add(
+                    (socketID, linkedID, dataType[socketID], dataType[linkedID])
+                )
+            else:
+                linkDataIDs.add(
+                    (linkedID, socketID, dataType[linkedID], dataType[socketID])
+                )
+    return linkDataIDs
+",True,if socketID [ 1 ] :,if socketID [ 1 ] :,100.0,0
+"def _stderr_supports_color():
+    try:
+        if hasattr(sys.stderr, ""isatty"") and sys.stderr.isatty():
+            if curses:
+                curses.setupterm()
+                if curses.tigetnum(""colors"") > 0:
+                    return True
+            elif colorama:
+                if sys.stderr is getattr(
+                    colorama.initialise, ""wrapped_stderr"", object()
+                ):
+                    return True
+    except Exception:
+        # Very broad exception handling because it's always better to
+        # fall back to non-colored logs than to break at startup.
+        pass
+    return False
+",False,"if curses . tigetnum ( ""colors"" ) > 0 :",if sys . stderr . isatty ( ) :,5.11,0
+"def offsets(self):
+    offsets = {}
+    offset_so_far = 0
+    for name, ty in self.fields.items():
+        if isinstance(ty, SimTypeBottom):
+            l.warning(
+                ""Found a bottom field in struct %s. Ignore and increment the offset using the default ""
+                ""element size."",
+                self.name,
+            )
+            continue
+        if not self._pack:
+            align = ty.alignment
+            if offset_so_far % align != 0:
+                offset_so_far += align - offset_so_far % align
+        offsets[name] = offset_so_far
+        offset_so_far += ty.size // self._arch.byte_width
+    return offsets
+",False,if offset_so_far % align != 0 :,"if isinstance ( ty , SimType",2.99,0
+"def Restore(self):
+    picker, obj = self._window, self._pObject
+    value = obj.RestoreValue(PERSIST_FILEDIRPICKER_PATH)
+    if value is not None:
+        if issubclass(picker.__class__, wx.FileDialog):
+            if type(value) == list:
+                value = value[-1]
+        picker.SetPath(value)
+        return True
+    return False
+",False,if type ( value ) == list :,if issubclass ( picker,5.44,0
+"def dt_s_tup_to_string(dt_s_tup):
+    dt_string = dt_s_tup[0]  # string for identifying the file to parse.
+    if dt_s_tup[1] > 0:  # if there are seasons in the model
+        if ""co"" in dt_string or ""ci"" in dt_string or ""nc"" in dt_string:
+            dt_string = dt_string[:2] + ""s"" + dt_string[2:]
+        else:
+            dt_string = ""s"" + dt_string
+    return dt_string
+",False,"if ""co"" in dt_string or ""ci"" in dt_string or ""nc"" in dt_string :",if dt_string [ 1 ] > 0 :,3.96,0
+"def writer(stream, items):
+    sep = """"
+    for item in items:
+        stream.write(sep)
+        sep = "" ""
+        if not isinstance(item, str):
+            item = str(item)
+        if not PY3K:
+            if not isinstance(item, unicode):
+                item = str(item)
+        stream.write(item)
+    stream.write(""\n"")
+",False,"if not isinstance ( item , str ) :","if not isinstance ( item , unicode :",62.4,0
+"def _get_result_keys(self, config):
+    result_key = config.get(""result_key"")
+    if result_key is not None:
+        if not isinstance(result_key, list):
+            result_key = [result_key]
+        result_key = [jmespath.compile(rk) for rk in result_key]
+        return result_key
+",False,"if not isinstance ( result_key , list ) :",if isinstance (,0.0,0
+"def _download_build_artifacts(self, build: Dict[str, Any]) -> None:
+    arch = build[""arch_tag""]
+    snap_build = self._lp_load_url(build[""self_link""])
+    urls = snap_build.getFileUrls()
+    if not urls:
+        logger.error(f""Snap file not available for arch {arch!r}."")
+        return
+    for url in urls:
+        file_name = _get_url_basename(url)
+        self._download_file(url=url, dst=file_name)
+        if file_name.endswith("".snap""):
+            logger.info(f""Snapped {file_name}"")
+        else:
+            logger.info(f""Fetched {file_name}"")
+",False,"if file_name . endswith ( "".snap"" ) :","if file_name . endswith ( "".fetch"" ) :",76.12,0
+"def _add_custom_statement(self, custom_statements):
+    if custom_statements is None:
+        return
+    self.resource_policy[""Version""] = ""2012-10-17""
+    if self.resource_policy.get(""Statement"") is None:
+        self.resource_policy[""Statement""] = custom_statements
+    else:
+        if not isinstance(custom_statements, list):
+            custom_statements = [custom_statements]
+        statement = self.resource_policy[""Statement""]
+        if not isinstance(statement, list):
+            statement = [statement]
+        for s in custom_statements:
+            if s not in statement:
+                statement.append(s)
+        self.resource_policy[""Statement""] = statement
+",False,if s not in statement :,"if not isinstance ( statement , list ) :",6.74,0
+"def display_failures_for_single_test(result: TestResult) -> None:
+    """"""Display a failure for a single method / endpoint.""""""
+    display_subsection(result)
+    checks = _get_unique_failures(result.checks)
+    for idx, check in enumerate(checks, 1):
+        message: Optional[str]
+        if check.message:
+            message = f""{idx}. {check.message}""
+        else:
+            message = None
+        example = cast(Case, check.example)  # filtered in `_get_unique_failures`
+        display_example(example, check.name, message, result.seed)
+        # Display every time except the last check
+        if idx != len(checks):
+            click.echo(""\n"")
+",False,if check . message :,# filtered in `_get_unique_failures`,0.0,0
+"def build(opt):
+    dpath = os.path.join(opt[""datapath""], ""qangaroo"")
+    version = ""v1.1""
+    if not build_data.built(dpath, version_string=version):
+        print(""[building data: "" + dpath + ""]"")
+        if build_data.built(dpath):
+            # An older version exists, so remove these outdated files.
+            build_data.remove_dir(dpath)
+        build_data.make_dir(dpath)
+        # Download the data.
+        for downloadable_file in RESOURCES:
+            downloadable_file.download_file(dpath)
+        # Mark the data as built.
+        build_data.mark_done(dpath, version_string=version)
+",False,if build_data . built ( dpath ) :,"if not build_data . built ( dpath , version_string = version )",39.65,0
+"def call(self, step_input, states):
+    new_states = []
+    for i in range(self.num_layers):
+        out, new_state = self.lstm_cells[i](step_input, states[i])
+        step_input = (
+            layers.dropout(
+                out, self.dropout_prob, dropout_implementation=""upscale_in_train""
+            )
+            if self.dropout_prob > 0.0
+            else out
+        )
+        new_states.append(new_state)
+    return step_input, new_states
+",False,if self . dropout_prob > 0.0,if self .,0.0,0
+"def jupyter_progress_bar(min=0, max=1.0):
+    """"""Returns an ipywidget progress bar or None if we can't import it""""""
+    widgets = wandb.util.get_module(""ipywidgets"")
+    try:
+        if widgets is None:
+            # TODO: this currently works in iPython but it's deprecated since 4.0
+            from IPython.html import widgets  # type: ignore
+        assert hasattr(widgets, ""VBox"")
+        assert hasattr(widgets, ""Label"")
+        assert hasattr(widgets, ""FloatProgress"")
+        return ProgressWidget(widgets, min=min, max=max)
+    except (ImportError, AssertionError):
+        return None
+",False,if widgets is None :,if,0.0,0
+"def _record_event(self, path, fsevent_handle, filename, events, error):
+    with self.lock:
+        self.events[path].append(events)
+        if events | pyuv.fs.UV_RENAME:
+            if not os.path.exists(path):
+                self.watches.pop(path).close()
+",False,if events | pyuv . fs . UV_RENAME :,if not os . path . exists (,5.0,0
+"def _get_v1_id_from_tags(self, tags_obj, tag):
+    """"""Get image id from array of tags""""""
+    if isinstance(tags_obj, dict):
+        try:
+            return tags_obj[tag]
+        except KeyError:
+            pass
+    elif isinstance(tags_obj, []):
+        try:
+            for tag_dict in tags_obj:
+                if tag_dict[""name""] == tag:
+                    return tag_dict[""layer""]
+        except KeyError:
+            pass
+    return """"
+",False,"if tag_dict [ ""name"" ] == tag :","if isinstance ( tags_obj ,",3.31,0
+"def query_lister(domain, query="""", max_items=None, attr_names=None):
+    more_results = True
+    num_results = 0
+    next_token = None
+    while more_results:
+        rs = domain.connection.query_with_attributes(
+            domain, query, attr_names, next_token=next_token
+        )
+        for item in rs:
+            if max_items:
+                if num_results == max_items:
+                    raise StopIteration
+            yield item
+            num_results += 1
+        next_token = rs.next_token
+        more_results = next_token != None
+",False,if max_items :,next_token = next_token,6.57,0
+"def filter(this, args):
+    array = to_object(this, args.space)
+    callbackfn = get_arg(args, 0)
+    arr_len = js_arr_length(array)
+    if not is_callable(callbackfn):
+        raise MakeError(""TypeError"", ""callbackfn must be a function"")
+    _this = get_arg(args, 1)
+    k = 0
+    res = []
+    while k < arr_len:
+        if array.has_property(unicode(k)):
+            kValue = array.get(unicode(k))
+            if to_boolean(callbackfn.call(_this, (kValue, float(k), array))):
+                res.append(kValue)
+        k += 1
+    return args.space.ConstructArray(res)
+",False,if array . has_property ( unicode ( k ) ) :,if not is_boolean ( callbackfn . call (,4.65,0
+"def every_one_is(self, dst):
+    msg = ""all members of %r should be %r, but the %dth is %r""
+    for index, item in enumerate(self._src):
+        if self._range:
+            if index < self._range[0] or index > self._range[1]:
+                continue
+        error = msg % (self._src, dst, index, item)
+        if item != dst:
+            raise AssertionError(error)
+    return True
+",False,if item != dst :,if item == dst :,37.99,0
+"def schedule_logger(job_id=None, delete=False):
+    if not job_id:
+        return getLogger(""fate_flow_schedule"")
+    else:
+        if delete:
+            with LoggerFactory.lock:
+                try:
+                    for key in LoggerFactory.schedule_logger_dict.keys():
+                        if job_id in key:
+                            del LoggerFactory.schedule_logger_dict[key]
+                except:
+                    pass
+            return True
+        key = job_id + ""schedule""
+        if key in LoggerFactory.schedule_logger_dict:
+            return LoggerFactory.schedule_logger_dict[key]
+        return LoggerFactory.get_schedule_logger(job_id)
+",False,if job_id in key :,if key in,0.0,0
+"def Tokenize(s):
+    # type: (str) -> Iterator[Token]
+    for item in TOKEN_RE.findall(s):
+        # The type checker can't know the true type of item!
+        item = cast(TupleStr4, item)
+        if item[0]:
+            typ = ""number""
+            val = item[0]
+        elif item[1]:
+            typ = ""name""
+            val = item[1]
+        elif item[2]:
+            typ = item[2]
+            val = item[2]
+        elif item[3]:
+            typ = item[3]
+            val = item[3]
+        yield Token(typ, val)
+",False,elif item [ 2 ] :,if item [ 0 ] :,22.96,0

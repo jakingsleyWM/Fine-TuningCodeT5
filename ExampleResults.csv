@@ -1,4 +1,4 @@
-Input function with masked if condition,Prediction is correct (exact match),Expected if condition,Predicted if condition,BLEU-4 prediction score (0-100),CodeBLEU prediction score (0-100)
+Input function with masked if condition,Prediction is correct (exact match),Expected if condition,Predicted if condition,BLEU-4 prediction score (0-100)
 "def read(self, count=True, timeout=None, ignore_non_errors=True, ignore_timeouts=True):
     try:
         return self._read(count, timeout)
@@ -13,7 +13,7 @@ Input function with masked if condition,Prediction is correct (exact match),Expe
         if ignore_non_errors and is_noerr(e):
             return []
         raise
-",False,if ignore_timeouts and is_timeout ( e ) :,if DEBUG_COMM :,3.47,0
+",False,if ignore_timeouts and is_timeout ( e ) :,if ignore_non_errors and is_noerr ( e ) :,32.86
 "def _cache_mem(curr_out, prev_mem, mem_len, reuse_len=None):
     """"""cache hidden states into memory.""""""
     if mem_len is None or mem_len == 0:
@@ -27,7 +27,7 @@ Input function with masked if condition,Prediction is correct (exact match),Expe
             new_mem = tf.concat([prev_mem, curr_out], 0)[-mem_len:]
     new_mem.stop_gradient = True
     return new_mem
-",True,if prev_mem is None :,if prev_mem is None :,100.0,0
+",False,if prev_mem is None :,if reuse_len is None :,27.78
 "def filtered(gen):
     for example in gen:
         example_len = length_fn(example)
@@ -41,7 +41,7 @@ Input function with masked if condition,Prediction is correct (exact match),Expe
                 continue
         # Within bounds.
         yield example
-",False,if example_len > max_length :,if,0.0,0
+",True,if example_len > max_length :,if example_len > max_length :,100.0
 "def search(self, query):
     # ""Search.ashx?query="" + query + filterVal
     if not query:
@@ -57,7 +57,7 @@ Input function with masked if condition,Prediction is correct (exact match),Expe
             self._stations[item[""guide_id""]] = item
             results.append(item)
     return results
-",False,"if item . get ( ""type"" , """" ) == ""audio"" :","self . _tunein ( ""Search.ashx"" , args )",6.58,0
+",True,"if item . get ( ""type"" , """" ) == ""audio"" :","if item . get ( ""type"" , """" ) == ""audio"" :",100.0
 "def _check_script(self, script, directive):
     for var in compile_script(script):
         if var.must_contain(""/""):
@@ -73,7 +73,7 @@ Input function with masked if condition,Prediction is correct (exact match),Expe
             self.add_issue(directive=[directive] + var.providers, reason=reason)
             return True
     return False
-",False,"if var . must_contain ( ""/"" ) :",if var . can_contain (,20.13,0
+",False,"if var . must_contain ( ""/"" ) :","if var . can_contain ( ""."" ) :",39.18
 "def getAllDataLinkIDs():
     linkDataIDs = set()
     dataType = _forestData.dataTypeBySocket
@@ -88,7 +88,7 @@ Input function with masked if condition,Prediction is correct (exact match),Expe
                     (linkedID, socketID, dataType[linkedID], dataType[socketID])
                 )
     return linkDataIDs
-",True,if socketID [ 1 ] :,if socketID [ 1 ] :,100.0,0
+",True,if socketID [ 1 ] :,if socketID [ 1 ] :,100.0
 "def _stderr_supports_color():
     try:
         if hasattr(sys.stderr, ""isatty"") and sys.stderr.isatty():
@@ -106,7 +106,7 @@ Input function with masked if condition,Prediction is correct (exact match),Expe
         # fall back to non-colored logs than to break at startup.
         pass
     return False
-",False,"if curses . tigetnum ( ""colors"" ) > 0 :",if sys . stderr . isatty ( ) :,5.11,0
+",False,"if curses . tigetnum ( ""colors"" ) > 0 :",if sys . stderr . isatty ( ) :,5.11
 "def offsets(self):
     offsets = {}
     offset_so_far = 0
@@ -125,7 +125,7 @@ Input function with masked if condition,Prediction is correct (exact match),Expe
         offsets[name] = offset_so_far
         offset_so_far += ty.size // self._arch.byte_width
     return offsets
-",False,if offset_so_far % align != 0 :,"if isinstance ( ty , SimType",2.99,0
+",False,if offset_so_far % align != 0 :,"if isinstance ( ty , SimType",2.99
 "def Restore(self):
     picker, obj = self._window, self._pObject
     value = obj.RestoreValue(PERSIST_FILEDIRPICKER_PATH)
@@ -136,7 +136,7 @@ Input function with masked if condition,Prediction is correct (exact match),Expe
         picker.SetPath(value)
         return True
     return False
-",False,if type ( value ) == list :,if issubclass ( picker,5.44,0
+",False,if type ( value ) == list :,,0.0
 "def dt_s_tup_to_string(dt_s_tup):
     dt_string = dt_s_tup[0]  # string for identifying the file to parse.
     if dt_s_tup[1] > 0:  # if there are seasons in the model
@@ -145,7 +145,7 @@ Input function with masked if condition,Prediction is correct (exact match),Expe
         else:
             dt_string = ""s"" + dt_string
     return dt_string
-",False,"if ""co"" in dt_string or ""ci"" in dt_string or ""nc"" in dt_string :",if dt_string [ 1 ] > 0 :,3.96,0
+",False,"if ""co"" in dt_string or ""ci"" in dt_string or ""nc"" in dt_string :","if ""ci"" in dt_string :",15.54
 "def writer(stream, items):
     sep = """"
     for item in items:
@@ -158,7 +158,7 @@ Input function with masked if condition,Prediction is correct (exact match),Expe
                 item = str(item)
         stream.write(item)
     stream.write(""\n"")
-",False,"if not isinstance ( item , str ) :","if not isinstance ( item , unicode :",62.4,0
+",False,"if not isinstance ( item , str ) :",,0.0
 "def _get_result_keys(self, config):
     result_key = config.get(""result_key"")
     if result_key is not None:
@@ -166,7 +166,7 @@ Input function with masked if condition,Prediction is correct (exact match),Expe
             result_key = [result_key]
         result_key = [jmespath.compile(rk) for rk in result_key]
         return result_key
-",False,"if not isinstance ( result_key , list ) :",if isinstance (,0.0,0
+",True,"if not isinstance ( result_key , list ) :","if not isinstance ( result_key , list ) :",100.0
 "def _download_build_artifacts(self, build: Dict[str, Any]) -> None:
     arch = build[""arch_tag""]
     snap_build = self._lp_load_url(build[""self_link""])
@@ -181,7 +181,7 @@ Input function with masked if condition,Prediction is correct (exact match),Expe
             logger.info(f""Snapped {file_name}"")
         else:
             logger.info(f""Fetched {file_name}"")
-",False,"if file_name . endswith ( "".snap"" ) :","if file_name . endswith ( "".fetch"" ) :",76.12,0
+",False,"if file_name . endswith ( "".snap"" ) :","if file_name . endsWith ( "" .",38.28
 "def _add_custom_statement(self, custom_statements):
     if custom_statements is None:
         return
@@ -198,7 +198,7 @@ Input function with masked if condition,Prediction is correct (exact match),Expe
             if s not in statement:
                 statement.append(s)
         self.resource_policy[""Statement""] = statement
-",False,if s not in statement :,"if not isinstance ( statement , list ) :",6.74,0
+",False,if s not in statement :,"if not isinstance ( s , list ) :",6.74
 "def display_failures_for_single_test(result: TestResult) -> None:
     """"""Display a failure for a single method / endpoint.""""""
     display_subsection(result)
@@ -214,7 +214,7 @@ Input function with masked if condition,Prediction is correct (exact match),Expe
         # Display every time except the last check
         if idx != len(checks):
             click.echo(""\n"")
-",False,if check . message :,# filtered in `_get_unique_failures`,0.0,0
+",True,if check . message :,if check . message :,100.0
 "def build(opt):
     dpath = os.path.join(opt[""datapath""], ""qangaroo"")
     version = ""v1.1""
@@ -229,7 +229,7 @@ Input function with masked if condition,Prediction is correct (exact match),Expe
             downloadable_file.download_file(dpath)
         # Mark the data as built.
         build_data.mark_done(dpath, version_string=version)
-",False,if build_data . built ( dpath ) :,"if not build_data . built ( dpath , version_string = version )",39.65,0
+",False,if build_data . built ( dpath ) :,"if not build_data . built ( dpath , version_string = version ) :",39.57
 "def call(self, step_input, states):
     new_states = []
     for i in range(self.num_layers):
@@ -243,7 +243,7 @@ Input function with masked if condition,Prediction is correct (exact match),Expe
         )
         new_states.append(new_state)
     return step_input, new_states
-",False,if self . dropout_prob > 0.0,if self .,0.0,0
+",True,if self . dropout_prob > 0.0,if self . dropout_prob > 0.0,100.0
 "def jupyter_progress_bar(min=0, max=1.0):
     """"""Returns an ipywidget progress bar or None if we can't import it""""""
     widgets = wandb.util.get_module(""ipywidgets"")
@@ -257,14 +257,14 @@ Input function with masked if condition,Prediction is correct (exact match),Expe
         return ProgressWidget(widgets, min=min, max=max)
     except (ImportError, AssertionError):
         return None
-",False,if widgets is None :,if,0.0,0
+",True,if widgets is None :,if widgets is None :,100.0
 "def _record_event(self, path, fsevent_handle, filename, events, error):
     with self.lock:
         self.events[path].append(events)
         if events | pyuv.fs.UV_RENAME:
             if not os.path.exists(path):
                 self.watches.pop(path).close()
-",False,if events | pyuv . fs . UV_RENAME :,if not os . path . exists (,5.0,0
+",False,if events | pyuv . fs . UV_RENAME :,if not os . path . exists ( path ) :,5.3
 "def _get_v1_id_from_tags(self, tags_obj, tag):
     """"""Get image id from array of tags""""""
     if isinstance(tags_obj, dict):
@@ -280,7 +280,7 @@ Input function with masked if condition,Prediction is correct (exact match),Expe
         except KeyError:
             pass
     return """"
-",False,"if tag_dict [ ""name"" ] == tag :","if isinstance ( tags_obj ,",3.31,0
+",False,"if tag_dict [ ""name"" ] == tag :","if isinstance ( tags_obj , [ ] ) :",4.67
 "def query_lister(domain, query="""", max_items=None, attr_names=None):
     more_results = True
     num_results = 0
@@ -297,7 +297,7 @@ Input function with masked if condition,Prediction is correct (exact match),Expe
             num_results += 1
         next_token = rs.next_token
         more_results = next_token != None
-",False,if max_items :,next_token = next_token,6.57,0
+",False,if max_items :,if num_results == max_items :,27.78
 "def filter(this, args):
     array = to_object(this, args.space)
     callbackfn = get_arg(args, 0)
@@ -314,7 +314,7 @@ Input function with masked if condition,Prediction is correct (exact match),Expe
                 res.append(kValue)
         k += 1
     return args.space.ConstructArray(res)
-",False,if array . has_property ( unicode ( k ) ) :,if not is_boolean ( callbackfn . call (,4.65,0
+",False,if array . has_property ( unicode ( k ) ) :,if to_boolean ( callbackfn ) :,7.43
 "def every_one_is(self, dst):
     msg = ""all members of %r should be %r, but the %dth is %r""
     for index, item in enumerate(self._src):
@@ -325,7 +325,7 @@ Input function with masked if condition,Prediction is correct (exact match),Expe
         if item != dst:
             raise AssertionError(error)
     return True
-",False,if item != dst :,if item == dst :,37.99,0
+",False,if item != dst :,if item < self . _range [ 0 ] :,8.3
 "def schedule_logger(job_id=None, delete=False):
     if not job_id:
         return getLogger(""fate_flow_schedule"")
@@ -343,7 +343,7 @@ Input function with masked if condition,Prediction is correct (exact match),Expe
         if key in LoggerFactory.schedule_logger_dict:
             return LoggerFactory.schedule_logger_dict[key]
         return LoggerFactory.get_schedule_logger(job_id)
-",False,if job_id in key :,if key in,0.0,0
+",False,if job_id in key :,if key in LoggerFactory . schedule_logger_dict :,5.6
 "def Tokenize(s):
     # type: (str) -> Iterator[Token]
     for item in TOKEN_RE.findall(s):
@@ -362,4 +362,334 @@ Input function with masked if condition,Prediction is correct (exact match),Expe
             typ = item[3]
             val = item[3]
         yield Token(typ, val)
-",False,elif item [ 2 ] :,if item [ 0 ] :,22.96,0
+",False,elif item [ 2 ] :,if item [ 1 ] :,22.96
+"def _read_data_from_all_categories(self, directory, config, categories):
+    lines = []
+    for category in categories:
+        data_file = os.path.join(directory, _DATASET_VERSION, category, config)
+        if os.path.exists(data_file):
+            with open(data_file) as f:
+                ls = f.read().split(""\n"")
+                for l in ls[::-1]:
+                    if not l:
+                        ls.remove(l)
+                lines.extend(ls)
+    return lines
+",True,if os . path . exists ( data_file ) :,if os . path . exists ( data_file ) :,100.0
+"def find_handlers(self, forms):
+    handlers = {}
+    for form in forms.itervalues():
+        for action_name, _action_label in form.actions:
+            if action_name not in handlers:
+                handlers[action_name] = form
+            else:
+                raise HandlerError(
+                    ""More than one form defines the handler %s"" % action_name
+                )
+    return handlers
+",False,if action_name not in handlers :,,0.0
+"def get_story_task_completed_body(payload: Dict[str, Any]) -> Optional[str]:
+    action = get_action_with_primary_id(payload)
+    kwargs = {
+        ""task_description"": action[""description""],
+    }
+    story_id = action[""story_id""]
+    for ref in payload[""references""]:
+        if ref[""id""] == story_id:
+            kwargs[""name_template""] = STORY_NAME_TEMPLATE.format(
+                name=ref[""name""],
+                app_url=ref[""app_url""],
+            )
+    if action[""changes""][""complete""][""new""]:
+        return STORY_TASK_COMPLETED_TEMPLATE.format(**kwargs)
+    else:
+        return None
+",True,"if ref [ ""id"" ] == story_id :","if ref [ ""id"" ] == story_id :",100.0
+"def _create_valid_graph(graph):
+    nodes = graph.nodes()
+    for i in range(len(nodes)):
+        for j in range(len(nodes)):
+            if i == j:
+                continue
+            edge = (nodes[i], nodes[j])
+            if graph.has_edge(edge):
+                graph.del_edge(edge)
+            graph.add_edge(edge, 1)
+",True,if i == j :,if i == j :,100.0
+"def _post_order(op):
+    if isinstance(op, tvm.tir.Allocate):
+        lift_stmt[-1].append(op)
+        return op.body
+    if isinstance(op, tvm.tir.AttrStmt):
+        if op.attr_key == ""storage_scope"":
+            lift_stmt[-1].append(op)
+            return op.body
+        if op.attr_key == ""virtual_thread"":
+            return _merge_block(lift_stmt.pop() + [op], op.body)
+        return op
+    if isinstance(op, tvm.tir.For):
+        return _merge_block(lift_stmt.pop() + [op], op.body)
+    raise RuntimeError(""not reached"")
+",False,"if op . attr_key == ""storage_scope"" :","if isinstance ( op , tvm . tir . For ) :",4.05
+"def format_lazy_import(names):
+    """"""Formats lazy import lines""""""
+    lines = """"
+    for _, name, asname in names:
+        pkg, _, _ = name.partition(""."")
+        if asname is None:
+            line = ""{pkg} = _LazyModule.load({pkg!r}, {mod!r})\n""
+        else:
+            line = ""{asname} = _LazyModule.load({pkg!r}, {mod!r}, {asname!r})\n""
+        lines += line.format(pkg=pkg, mod=name, asname=asname)
+    return lines
+",True,if asname is None :,if asname is None :,100.0
+"def evaluateWord(self, argument):
+    wildcard_count = argument[0].count(""*"")
+    if wildcard_count > 0:
+        if wildcard_count == 1 and argument[0].startswith(""*""):
+            return self.GetWordWildcard(argument[0][1:], method=""endswith"")
+        if wildcard_count == 1 and argument[0].endswith(""*""):
+            return self.GetWordWildcard(argument[0][:-1], method=""startswith"")
+        else:
+            _regex = argument[0].replace(""*"", "".+"")
+            matched = False
+            for w in self.words:
+                matched = bool(re.search(_regex, w))
+                if matched:
+                    break
+            return matched
+    return self.GetWord(argument[0])
+",False,if matched :,if not matched :,35.36
+"def setup(self, ir: ""IR"", aconf: Config) -> bool:
+    if self.kind == ""ConsulResolver"":
+        self.resolve_with = ""consul""
+        if not self.get(""datacenter""):
+            self.post_error(""ConsulResolver is required to have a datacenter"")
+            return False
+    elif self.kind == ""KubernetesServiceResolver"":
+        self.resolve_with = ""k8s""
+    elif self.kind == ""KubernetesEndpointResolver"":
+        self.resolve_with = ""k8s""
+    else:
+        self.post_error(f""Resolver kind {self.kind} unknown"")
+        return False
+    return True
+",True,"if not self . get ( ""datacenter"" ) :","if not self . get ( ""datacenter"" ) :",100.0
+"def get_success_url(self):
+    """"""Continue to the flow index or redirect according `?back` parameter.""""""
+    if ""back"" in self.request.GET:
+        back_url = self.request.GET[""back""]
+        if not is_safe_url(url=back_url, allowed_hosts={self.request.get_host()}):
+            back_url = ""/""
+        return back_url
+    return reverse(self.success_url)
+",False,"if not is_safe_url ( url = back_url , allowed_hosts = { self . request . get_host ( ) } ) :","if not is_safe_url ( url = back_url , allowed_hosts={self.request.get_host ( ) } ) :",100.0
+"def download_main(
+    download, download_playlist, urls, playlist, output_dir, merge, info_only
+):
+    for url in urls:
+        if url.startswith(""https://""):
+            url = url[8:]
+        if not url.startswith(""http://""):
+            url = ""http://"" + url
+        if playlist:
+            download_playlist(
+                url, output_dir=output_dir, merge=merge, info_only=info_only
+            )
+        else:
+            download(url, output_dir=output_dir, merge=merge, info_only=info_only)
+",False,"if not url . startswith ( ""http://"" ) :",,0.0
+"def __str__(self):
+    buf = [""""]
+    if self.fileName:
+        buf.append(self.fileName + "":"")
+    if self.line != -1:
+        if not self.fileName:
+            buf.append(""line "")
+        buf.append(str(self.line))
+        if self.column != -1:
+            buf.append("":"" + str(self.column))
+        buf.append("":"")
+    buf.append("" "")
+    return str("""").join(buf)
+",False,if not self . fileName :,if self . column != -1 :,13.13
+"def parse_bash_set_output(output):
+    """"""Parse Bash-like 'set' output""""""
+    if not sys.platform.startswith(""win""):
+        # Replace ""\""-continued lines in *Linux* environment dumps.
+        # Cannot do this on Windows because a ""\"" at the end of the
+        # line does not imply a continuation.
+        output = output.replace(""\\\n"", """")
+    environ = {}
+    for line in output.splitlines(0):
+        line = line.rstrip()
+        if not line:
+            continue  # skip black lines
+        item = _ParseBashEnvStr(line)
+        if item:
+            environ[item[0]] = item[1]
+    return environ
+",True,if item :,if item :,0.0
+"def remove_selected(self):
+    """"""Removes selected items from list.""""""
+    to_delete = []
+    for i in range(len(self)):
+        if self[i].selected:
+            to_delete.append(i)
+    to_delete.reverse()
+    for i in to_delete:
+        self.pop(i)
+    if len(to_delete) > 0:
+        first_to_delete = to_delete[-1]
+        if first_to_delete == 0 and len(self) > 0:
+            self[0].selected = True
+        elif first_to_delete > 0:
+            self[first_to_delete - 1].selected = True
+",False,if first_to_delete == 0 and len ( self ) > 0 :,if len ( self ) > 0 :,28.23
+"def update(self, update_tracks=True):
+    self.enable_update_metadata_images(False)
+    old_album_title = self.metadata[""album""]
+    self.metadata[""album""] = config.setting[""nat_name""]
+    for track in self.tracks:
+        if old_album_title == track.metadata[""album""]:
+            track.metadata[""album""] = self.metadata[""album""]
+        for file in track.linked_files:
+            track.update_file_metadata(file)
+    self.enable_update_metadata_images(True)
+    super().update(update_tracks)
+",True,"if old_album_title == track . metadata [ ""album"" ] :","if old_album_title == track . metadata [ ""album"" ] :",100.0
+"def on_input(self, target, message):
+    if message.strip() == """":
+        self.panel(""No commit message provided"")
+        return
+    if target:
+        command = [""git"", ""add""]
+        if target == ""*"":
+            command.append(""--all"")
+        else:
+            command.extend((""--"", target))
+        self.run_command(command, functools.partial(self.add_done, message))
+    else:
+        self.add_done(message, """")
+",False,"if target == ""*"" :","if target == ""* :",72.9
+"def go_to_last_edit_location(self):
+    if self.last_edit_cursor_pos is not None:
+        filename, position = self.last_edit_cursor_pos
+        if not osp.isfile(filename):
+            self.last_edit_cursor_pos = None
+            return
+        else:
+            self.load(filename)
+            editor = self.get_current_editor()
+            if position < editor.document().characterCount():
+                editor.set_cursor_position(position)
+",True,if not osp . isfile ( filename ) :,if not osp . isfile ( filename ) :,100.0
+"def returnByType(self, results):
+    new_results = {}
+    for r in results:
+        type_name = r.get(""type"", ""movie"") + ""s""
+        if type_name not in new_results:
+            new_results[type_name] = []
+        new_results[type_name].append(r)
+    # Combine movies, needs a cleaner way..
+    if ""movies"" in new_results:
+        new_results[""movies""] = self.combineOnIMDB(new_results[""movies""])
+    return new_results
+",False,if type_name not in new_results :,"if ""movies"" in new_results :",41.8
+"def cache_sns_topics_across_accounts() -> bool:
+    function: str = f""{__name__}.{sys._getframe().f_code.co_name}""
+    # First, get list of accounts
+    accounts_d: list = async_to_sync(get_account_id_to_name_mapping)()
+    for account_id in accounts_d.keys():
+        if config.get(""environment"") == ""prod"":
+            cache_sns_topics_for_account.delay(account_id)
+        else:
+            if account_id in config.get(""celery.test_account_ids"", []):
+                cache_sns_topics_for_account.delay(account_id)
+    stats.count(f""{function}.success"")
+    return True
+",False,"if account_id in config . get ( ""celery.test_account_ids"" , [ ] ) :","if account_id in config . get ( ""celery.test_account_ids"" , [] ) :",100.0
+"def get(self, subject, topic):
+    """"""Handles GET requests.""""""
+    if subject in feconf.AVAILABLE_LANDING_PAGES:
+        if topic in feconf.AVAILABLE_LANDING_PAGES[subject]:
+            self.render_template(""topic-landing-page.mainpage.html"")
+        else:
+            raise self.PageNotFoundException
+    else:
+        raise self.PageNotFoundException
+",False,if topic in feconf . AVAILABLE_LANDING_PAGES [ subject ] :,if subject in feconf .AVAILABLE_LANDING_PAGES [ subject ] :,85.55
+"def callback(compiled):
+    if destpath is None:
+        logger.show_tabulated(
+            ""Compiled"", showpath(codepath), ""without writing to file.""
+        )
+    else:
+        with univ_open(destpath, ""w"") as opened:
+            writefile(opened, compiled)
+        logger.show_tabulated(""Compiled to"", showpath(destpath), ""."")
+    if self.show:
+        print(compiled)
+    if run:
+        if destpath is None:
+            self.execute(compiled, path=codepath, allow_show=False)
+        else:
+            self.execute_file(destpath)
+",False,if destpath is None :,if self . show :,12.7
+"def _find_start_index(self, string, start, end):
+    while True:
+        index = string.find(""{"", start, end) - 1
+        if index < 0:
+            return -1
+        if self._start_index_is_ok(string, index):
+            return index
+        start = index + 2
+",True,"if self . _start_index_is_ok ( string , index ) :","if self . _start_index_is_ok ( string , index ) :",100.0
+"def _get_nlu_target_format(export_path: Text) -> Text:
+    guessed_format = loading.guess_format(export_path)
+    if guessed_format not in {MARKDOWN, RASA, RASA_YAML}:
+        if rasa.shared.data.is_likely_json_file(export_path):
+            guessed_format = RASA
+        elif rasa.shared.data.is_likely_markdown_file(export_path):
+            guessed_format = MARKDOWN
+        elif rasa.shared.data.is_likely_yaml_file(export_path):
+            guessed_format = RASA_YAML
+    return guessed_format
+",False,elif rasa . shared . data . is_likely_yaml_file ( export_path ) :,if rasa . shared . data . is_likely_markdown_file ( export_path ) :,80.32
+"def moveToThreadNext(self):
+    """"""Move a position to threadNext position.""""""
+    p = self
+    if p.v:
+        if p.v.children:
+            p.moveToFirstChild()
+        elif p.hasNext():
+            p.moveToNext()
+        else:
+            p.moveToParent()
+            while p:
+                if p.hasNext():
+                    p.moveToNext()
+                    break  # found
+                p.moveToParent()
+            # not found.
+    return p
+",True,if p . hasNext ( ) :,if p . hasNext ( ) :,100.0
+"def copy_attributes(info_add, obj, name_fmt, attributes, formatter=None):
+    for attr in attributes:
+        value = getattr(obj, attr, None)
+        if value is None:
+            continue
+        name = name_fmt % attr
+        if formatter is not None:
+            value = formatter(attr, value)
+        info_add(name, value)
+",True,if value is None :,if value is None :,100.0
+"def getElement(self, aboutUri, namespace, name):
+    for desc in self.rdfRoot.getElementsByTagNameNS(RDF_NAMESPACE, ""Description""):
+        if desc.getAttributeNS(RDF_NAMESPACE, ""about"") == aboutUri:
+            attr = desc.getAttributeNodeNS(namespace, name)
+            if attr != None:
+                yield attr
+            for element in desc.getElementsByTagNameNS(namespace, name):
+                yield element
+",False,"if desc . getAttributeNS ( RDF_NAMESPACE , ""about"" ) == aboutUri :",if attr != None :,1.71
